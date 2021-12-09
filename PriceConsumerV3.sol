@@ -14,6 +14,8 @@ contract PriceConsumerV3 {
      * Aggregator: ETH/USD
      * Address: 0x9326BFA02ADD2366b30bacB125260Af641031331
      */
+    // which means we need to select Injected Web3 ENVIRONMENT in Remix and select MetaMask account on Kovan testnet
+
     constructor() {
         priceFeed = AggregatorV3Interface(
             0x9326BFA02ADD2366b30bacB125260Af641031331

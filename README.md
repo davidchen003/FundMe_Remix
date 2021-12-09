@@ -1,7 +1,7 @@
 # Chainlink
 
 - a modularized decentralized oracle network provides external data
-- [Chainlink Data Feed](https://data.chain.link/)
+- [Chainlink Data Feeds](https://data.chain.link/)
 
 # Get ETH price
 
@@ -19,8 +19,20 @@
 
 # Interface: AggregatorV3Interface.sol
 
-- [AggregatorV3Interface.sol](https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol)
+- [AggregatorV3Interface.sol](https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol)
 - unlike keyword contract, interface doesn't have full function implemetations.
 - interface compiles down to an ABI (application binary interface).
 - ABI tells solidity (and other programming languages) how it can interact with another contract (what functions can be called on another contract)
 - anytime you want to interact with an already deployed smart contract you will need an ABI.
+
+# FundMe.so
+
+## Get ETH price
+
+- `import "@chainlink/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol";` is equivalent to copy/paste here the [AggregatorV3Interface.sol code](https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol)
+- now we can call/use the functions in the AggregatorV3Interface
+- in FundMe.sol, `AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e)` means `priceFeed` is a contract defined by AggregatorV3Interface.sol located at the address 0x8A753747A1Fa494EC906cE90E9f37563A8AF630, which is Rinkeby ETH/USD price feed address from [Ethereum Data Feeds](https://docs.chain.link/docs/ethereum-addresses/)
+- **don't see AggregatorV3Interface.sol has constructor of taking address parameter?**
+- since the contract is on Rinkeby testnet, we need to select `Injected Web3` ENVIRONMENT to deploy it in Remix, and select MetaMask account on Rinkeby testnet
+
+**commit 3**
