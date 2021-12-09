@@ -36,3 +36,17 @@
 - since the contract is on Rinkeby testnet, we need to select `Injected Web3` ENVIRONMENT to deploy it in Remix, and select MetaMask account on Rinkeby testnet
 
 **commit 3**
+
+## SafeMath library
+
+- to avoid overflow error for Solidity < 0.8
+- Libraries are similar to contracts, but their purpose is that they are deployed only once at a specific address and their code is reused
+- **Using** keyword: the directive using A for B, can be used to attach libbrary functions (from the library A) to any type (B) in the context of a contract.
+
+## Set fund minimum/threshold
+
+- Require statement, if not met, revert the transation
+- Pick a low VALUE (say 1 Gwei), we'll get an Gas Estimation Error: Gas estimation errored with the following message (see below). The transaction execution will likely fail. Do you want to force sending? We can force send. Then check Rinkeby esther scan, we'll see error message there "Fail with error 'You need to spend more ETH!"
+- but if we send more (say 13000000 Gwei, which is 0.013 ETH), it will go through
+
+**Commit 4**

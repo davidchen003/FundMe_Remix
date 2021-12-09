@@ -3,10 +3,16 @@
 pragma solidity >=0.6.6 <0.9.0;
 
 import "@chainlink/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol";
-
 //newer version v0.8 (as in PriceConsumerV3.sol)
 
+import "@chainlink/contracts/src/v0.6/vendor/SafeMathChainlink.sol";
+
+// to avoid overflow error for Solidity < 0.8
+
 contract FundMe {
+    using SafeMathChainlink for uint256;
+    //using A for B, can be used to attach libbrary functions (from the library A) to any type (B) in the context of a contract.
+
     mapping(address => uint256) public addressToAmountFunded;
     address[] public funders;
     address public owner;
@@ -18,6 +24,13 @@ contract FundMe {
     function fund() public payable {
         // payable for it can receive VALUE (money in ETH)
         // the button for payable button will be in color red
+
+        uint256 minimumUSD = 50 * 10**18; //so it has 18 digits also
+
+        require(
+            getConversionRate(msg.value) >= minimumUSD,
+            "You need to spend more ETH!"
+        );
 
         addressToAmountFunded[msg.sender] += msg.value;
         // msg.sender and msg.value are keywords in every function call
@@ -41,5 +54,17 @@ contract FundMe {
         // we only need the 2nd value in the returned tuple of latestRoundData()
 
         return uint256(answer * 10000000000); // so the value has 18 digits
+    }
+
+    function getConversionRate(uint256 ethAmount)
+        public
+        view
+        returns (uint256)
+    {
+        uint256 ethPrice = getPrice();
+        uint256 ethAmountInUsd = (ethPrice * ethAmount) / 1000000000000000000;
+        // to convert the ethAmount into ETH uint256
+
+        return ethAmountInUsd; // = USD with 18 "digit" (or USD * 10^18)
     }
 }
