@@ -67,4 +67,26 @@ contract FundMe {
 
         return ethAmountInUsd; // = USD with 18 "digit" (or USD * 10^18)
     }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _;
+    }
+
+    function withdraw() public payable onlyOwner {
+        // to send all (balance of) money of this contract to the caller
+        msg.sender.transfer(address(this).balance);
+        // keyword **this** in Solidity refers to the contract it is in
+
+        // to reset funders' balance to zero after money is withdrawn
+        for (
+            uint256 funderIndex = 0;
+            funderIndex < funders.length;
+            funderIndex++
+        ) {
+            address funder = funders[funderIndex];
+            addressToAmountFunded[funder] = 0;
+        }
+        funders = new address[](0);
+    }
 }

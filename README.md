@@ -25,7 +25,7 @@
 - ABI tells solidity (and other programming languages) how it can interact with another contract (what functions can be called on another contract)
 - anytime you want to interact with an already deployed smart contract you will need an ABI.
 
-# FundMe.so
+# FundMe.sol
 
 ## Get ETH price
 
@@ -50,3 +50,10 @@
 - but if we send more (say 13000000 Gwei, which is 0.013 ETH), it will go through
 
 **Commit 4**
+
+## Withdraw money; Modifier OnlyOwner
+
+- The **Constructor** is the function that get called/executed when the contract is deployed
+- Instead of writing `require(msg.sender == owner)` in functions that need it, we'll use Modifier.
+
+**Commit 5**
